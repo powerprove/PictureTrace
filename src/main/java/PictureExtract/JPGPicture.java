@@ -14,8 +14,8 @@ import java.io.IOException;
 public class JPGPicture extends Picture
 {
     private Metadata metadata = null;
-    private ArrayList<Directory> directoryList = new ArrayList<Directory>();
-    private ArrayList<Tag> tagList = new ArrayList<Tag>();
+    private ArrayList<Directory> directoryList = new ArrayList<>();
+    private ArrayList<Tag> tagList = new ArrayList<>();
 
     public JPGPicture(String filename)
     {
@@ -29,11 +29,7 @@ public class JPGPicture extends Picture
             jpgFileOpen();
             fileAnalysis();
         }
-        catch (ImageProcessingException e)
-        {
-            e.printStackTrace();
-        }
-        catch (IOException e)
+        catch (ImageProcessingException | IOException e)
         {
             e.printStackTrace();
         }
@@ -51,8 +47,7 @@ public class JPGPicture extends Picture
         for (Directory directory : metadata.getDirectories())
         {
             this.directoryList.add(directory);
-            for (Tag tag : directory.getTags())
-                this.tagList.add(tag);
+            this.tagList.addAll(directory.getTags());
         }
     }
 
