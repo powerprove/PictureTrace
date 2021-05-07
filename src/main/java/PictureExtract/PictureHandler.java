@@ -17,16 +17,17 @@ public class PictureHandler
         this.picture = new JPGPicture(filename);
         this.id = id;
         this.idx = idx;
+        this. extractFileCheck();
     }
 
     public void ExtractFullMetaData()
     {
-        extractFileWrite(this.picture.getFullMetaData());
+        this.extracttofile.FullFileWrite(this.picture.getFullMetaData());
     }
 
     public void ExtractCoreMetaData()
     {
-        extractFileWrite(this.picture.getCoreMetaData());
+        this.extracttofile.CoreFileWrite(this.picture.getCoreMetaData());
     }
 
     @Override
@@ -42,10 +43,5 @@ public class PictureHandler
             extracttofile = new ExtractToFile(this.picture.getFilename(), this.id, this.idx);
     }
 
-    private void extractFileWrite(ArrayList<String> data)
-    {
-        extractFileCheck();
-        this.extracttofile.FileWrite(data);
-    }
 
 }

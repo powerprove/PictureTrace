@@ -26,6 +26,23 @@ public class ExtractToFile
         FileOpen();
     }
 
+    public void addExtFile(String ext)
+    {
+        FileOpen(ext);
+    }
+
+    public void FullFileWrite(ArrayList<String> Data)
+    {
+        addExtFile(ExtractInfo.Fullext);
+        FileWrite(Data);
+    }
+
+    public void CoreFileWrite(ArrayList<String> Data)
+    {
+        addExtFile(ExtractInfo.Coreext);
+        FileWrite(Data);
+    }
+
     public boolean FileWrite(String Data)
     {
         try {
@@ -65,6 +82,12 @@ public class ExtractToFile
     {
         this.file = new File(ExtractInfo.DefaultPath +
                 "/" + Hash.getMd5(this.originalFilename + this.id + this.idx));
+    }
+
+    private void FileOpen(String ext)
+    {
+        this.file = new File(ExtractInfo.DefaultPath +
+                "/" + Hash.getMd5(this.originalFilename + this.id + this.idx) + ext);
     }
 
 
