@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 abstract public class Picture
 {
@@ -42,5 +44,8 @@ abstract public class Picture
     }
 
     abstract public String toString();
-    abstract public void fileExtract();
+    abstract public void extractMetadata();
+    abstract public ArrayList<String> getFullMetaData();
+    abstract public ArrayList<String> getCoreMetaData();
+    abstract public String getMetaData(String tagName);
 }

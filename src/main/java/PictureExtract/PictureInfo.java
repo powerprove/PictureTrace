@@ -5,6 +5,8 @@ public class PictureInfo
     public final static String JPGFormat = "JPG";
     public final static String PNGFORMAT = "png";
 
+    public final static String MetaDataFormat = "[%s] - %s = %s\n";
+
     public static String[] CoreTagList = {
             // File Directory
             "File Name",
@@ -35,4 +37,5 @@ public class PictureInfo
             "Profile Copyright",
             "Profile Date/Time"
     };
+
 }

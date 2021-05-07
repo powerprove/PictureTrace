@@ -1,8 +1,12 @@
-package PictureExtract;
+package PictureExtract.JPG;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import PictureExtract.Picture;
+import PictureExtract.PictureInfo;
+import PictureExtract.PrintFormat;
 import com.drew.imaging.ImageMetadataReader;
 import com.drew.imaging.ImageProcessingException;
 import com.drew.metadata.Directory;
@@ -20,10 +24,14 @@ public class JPGPicture extends Picture
     public JPGPicture(String filename)
     {
         super(filename);
+        extractMetadata();
     }
 
-    public void fileExtract()
+    public void extractMetadata()
     {
+        if (!directoryList.isEmpty() && !tagList.isEmpty())
+            return;
+
         try
         {
             jpgFileOpen();
@@ -35,11 +43,59 @@ public class JPGPicture extends Picture
         }
     }
 
+    public ArrayList<String> getFullMetaData()
+    {
+        printFullMetaData();
+        ArrayList<String> fullMetadata = new ArrayList<>();
+
+        for (Tag tag : this.tagList)
+        {
+            String metadata = String.format(PictureInfo.MetaDataFormat,
+                    tag.getDirectoryName(), tag.getTagName(), tag.getDescription());
+            fullMetadata.add(metadata);
+        }
+
+        return fullMetadata;
+    }
+
+    public ArrayList<String> getCoreMetaData()
+    {
+
+        ArrayList<String> coreMetadata = new ArrayList<>();
+
+        for (Tag tag : this.tagList)
+        {
+            if (Arrays.asList(PictureInfo.CoreTagList).contains(tag.getTagName())) {
+                String metadata = String.format(PictureInfo.MetaDataFormat,
+                        tag.getDirectoryName(), tag.getTagName(), tag.getDescription());
+                coreMetadata.add(metadata);
+            }
+        }
+
+        return coreMetadata;
+    }
+
+    public String getMetaData(String tagName)
+    {
+        String result = null;
+
+        for (Tag tag : this.tagList)
+            if (tag.getTagName().equals(tagName))
+                result = tag.getDescription();
+
+        return result;
+    }
+
     private void fileAnalysis()
     {
         setMetaDataList();
         printFullMetaData();
         printCoreMetaData();
+    }
+
+    private void jpgFileOpen() throws ImageProcessingException, IOException
+    {
+        this.metadata = ImageMetadataReader.readMetadata(getFile());
     }
 
     private void setMetaDataList()
@@ -50,6 +106,7 @@ public class JPGPicture extends Picture
             this.tagList.addAll(directory.getTags());
         }
     }
+
 
     private void printFullMetaData()
     {
@@ -87,8 +144,4 @@ public class JPGPicture extends Picture
         return PictureInfo.JPGFormat;
     }
 
-    private void jpgFileOpen() throws ImageProcessingException, IOException
-    {
-        this.metadata = ImageMetadataReader.readMetadata(getFile());
-    }
 }
