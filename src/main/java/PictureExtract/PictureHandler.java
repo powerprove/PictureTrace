@@ -2,8 +2,9 @@ package PictureExtract;
 
 import PictureExtract.Extract.ExtractToFile;
 import PictureExtract.JPG.JPGPicture;
+import PictureExtract.Patch.PatchFile;
+import PictureExtract.Patch.PatchInfo;
 
-import java.util.ArrayList;
 
 public class PictureHandler
 {
@@ -17,7 +18,7 @@ public class PictureHandler
         this.picture = new JPGPicture(filename);
         this.id = id;
         this.idx = idx;
-        this. extractFileCheck();
+        this.extractFileCheck();
     }
 
     public void ExtractFullMetaData()
@@ -28,6 +29,13 @@ public class PictureHandler
     public void ExtractCoreMetaData()
     {
         this.extracttofile.CoreFileWrite(this.picture.getCoreMetaData());
+    }
+
+    public void encryptFile()
+    {
+        PatchFile encryptfile = new PatchFile(PatchInfo.DefaultPath + "/" + this.picture.getFile().getName()
+                ,this.picture);
+        encryptfile.CRCWrite(this.id);
     }
 
     @Override

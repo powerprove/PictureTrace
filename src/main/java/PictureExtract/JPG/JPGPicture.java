@@ -1,9 +1,11 @@
 package PictureExtract.JPG;
 
+import java.io.File;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import PictureExtract.Patch.FilePatcher;
 import PictureExtract.Picture;
 import PictureExtract.PictureInfo;
 import PictureExtract.PrintFormat;
@@ -86,6 +88,24 @@ public class JPGPicture extends Picture
         return result;
     }
 
+    public String getCRCMetaData(String nickname)
+    {
+        String result = "";
+        ArrayList<String> metadata = getCoreMetaData();
+
+        for (String data : metadata)
+            result.concat(data);
+
+        result += nickname;
+        result = Util.Hash.getMd5(result);
+        return result;
+    }
+
+    public FilePatcher getPatcher(File file)
+    {
+        return new JPGPatcher(file);
+    }
+
     private void fileAnalysis()
     {
         setMetaDataList();
@@ -135,8 +155,6 @@ public class JPGPicture extends Picture
         System.out.format(PrintFormat.MetaDataPrintFrameFormat,
                 PrintFormat.MetaDataPrintCoreData, PrintFormat.MetaDataPrintEnd);
     }
-
-
 
     @Override
     public String toString()

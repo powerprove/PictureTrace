@@ -16,4 +16,7 @@ public class PrintFormat
     public static final String ErrorStringFormat = "[ERROR] - [%s] - %s\n";
     public static final String ErrorStringArrayEmpty = "String Array is Empty";
 
+    //Error Patch Format
+    public static final String ErrorPatchSetPicture = "please Set picture";
+
 }

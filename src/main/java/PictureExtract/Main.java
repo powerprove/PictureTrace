@@ -10,5 +10,6 @@ public class Main
         picturehandler.ExtractFullMetaData();
         picturehandler.ExtractCoreMetaData();
         System.out.println(picturehandler);
+        picturehandler.encryptFile();
     }
 }

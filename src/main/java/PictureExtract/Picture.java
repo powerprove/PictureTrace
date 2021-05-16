@@ -1,5 +1,7 @@
 package PictureExtract;
 
+import PictureExtract.Patch.FilePatcher;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -48,4 +50,6 @@ abstract public class Picture
     abstract public ArrayList<String> getFullMetaData();
     abstract public ArrayList<String> getCoreMetaData();
     abstract public String getMetaData(String tagName);
+    abstract public String getCRCMetaData(String nickname);
+    abstract public FilePatcher getPatcher(File file);
 }
